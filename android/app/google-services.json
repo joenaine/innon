@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "738738536110",
+    "project_id": "inneapol",
+    "storage_bucket": "inneapol.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:738738536110:android:2feab5c41016f40d81373f",
+        "android_client_info": {
+          "package_name": "com.example.inneapolis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "738738536110-9qc5u01rkpio222d7eiahkkf9svc3io7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.inneapolis",
+            "certificate_hash": "cdc9f8795ca41a38bd42828066a441a6505012a1"
+          }
+        },
+        {
+          "client_id": "738738536110-f9p75k8bhqa35htu6q62rgcogc0lm75l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChdjfzeB6EryEKRLuq5XYdxPdGCgLgo4w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "738738536110-f9p75k8bhqa35htu6q62rgcogc0lm75l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
