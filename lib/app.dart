@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:innon/generated/l10n.dart';
 import 'package:innon/init_widget.dart';
-import 'package:innon/pages/main/main_page.dart';
+import 'package:innon/pages/home/home_page.dart';
 import 'package:innon/resources/themes.dart';
 
 class App extends StatelessWidget {
@@ -26,7 +26,7 @@ class App extends StatelessWidget {
             locale: const Locale('en', 'EN'),
             debugShowCheckedModeBanner: false,
             theme: Themes.defaultTheme,
-            home: const MainPage(),
+            home: const HomePage(),
           ),
         );
       },

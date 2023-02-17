@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:innon/pages/main/main_page.dart';
+import 'package:innon/pages/home/home_page.dart';
 import 'package:innon/resources/app_assets.dart';
 import 'package:innon/resources/app_colors_const.dart';
 import 'package:innon/resources/firebase_consts.dart';
@@ -31,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     try {
       await AuthRepository().signInWithGoogle().then((value) async {
-        changeScreenReplacement(context, const MainPage());
+        changeScreenReplacement(context, const HomePage());
 
         // changeScreenReplacement(context, const MainPage());
         final User? user = authInstance.currentUser;

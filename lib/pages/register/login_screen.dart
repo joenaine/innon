@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:innon/pages/main/main_page.dart';
+import 'package:innon/pages/home/home_page.dart';
 import 'package:innon/pages/register/register_screen.dart';
 import 'package:innon/resources/app_colors_const.dart';
 import 'package:innon/resources/app_styles_const.dart';
@@ -100,6 +100,6 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final user = authInstance.currentUser;
-    return user != null ? const MainPage() : loginDisplay();
+    return user != null ? const HomePage() : loginDisplay();
   }
 }

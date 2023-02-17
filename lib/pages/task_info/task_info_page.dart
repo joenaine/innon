@@ -81,6 +81,15 @@ class _TaskInfoPageState extends State<TaskInfoPage> {
                 alignment: Alignment.centerLeft,
                 child: GestureDetector(
                   onTap: () {
+                    if (kanbanInit.canUpdateTask) {
+                      kanbanInit.updateTask(
+                        widget.boardId,
+                        widget.cardId,
+                        widget.taskId,
+                        titleController.text,
+                        descriptionController.text,
+                      );
+                    }
                     Navigator.pop(context);
                   },
                   child: const Icon(
@@ -100,11 +109,7 @@ class _TaskInfoPageState extends State<TaskInfoPage> {
                     onTap: () {
                       kanbanInit.deleteTask(
                           column: widget.cardId, task: widget.task!);
-                      // taskInit.deleteTask(
-                      //   widget.boardId,
-                      //   widget.cardId,
-                      //   widget.taskId,
-                      // );
+
                       kanbanInit.canUpdateTask = false;
                       Navigator.pop(context);
                     },
@@ -174,19 +179,28 @@ class _TaskInfoPageState extends State<TaskInfoPage> {
                   ),
                   Container(
                     height: 80,
+                    padding: const EdgeInsets.all(16),
                     color: AppColors.white,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const SizedBox(width: 5);
-                      },
-                      itemBuilder: (BuildContext context, int index) {
-                        return const CircleAvatar(
-                          backgroundColor: AppColors.grayLight,
-                        );
-                      },
-                    ),
+                    child: widget.task!.users != null
+                        ? ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: widget.task!.users!.length,
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return const SizedBox(width: 5);
+                            },
+                            itemBuilder: (BuildContext context, int index) {
+                              return CircleAvatar(
+                                backgroundColor: AppColors.grayLight,
+                                backgroundImage: NetworkImage(
+                                    widget.task!.users![index].photo!),
+                              );
+                            },
+                          )
+                        : Container(
+                            alignment: Alignment.center,
+                            child: TextSize.s18w700('Users not selected'),
+                          ),
                   ),
                   SizedBox(
                     height: 8.h,

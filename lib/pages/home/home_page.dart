@@ -1,31 +1,42 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:innon/pages/board_list/board_list_page.dart';
 import 'package:innon/pages/kanban/kanban_provider.dart';
-import 'package:innon/pages/main/main_page_provider.dart';
+import 'package:innon/pages/home/home_page_provider.dart';
 import 'package:innon/pages/register/auth.dart';
 import 'package:innon/pages/register/register_screen.dart';
-import 'package:innon/pages/tasks/tasks_page.dart';
+import 'package:innon/pages/tasks_history/tasks_page.dart';
+import 'package:innon/pages/tasks_user_history/tasks_user_page.dart';
 import 'package:innon/resources/app_colors_const.dart';
 import 'package:innon/resources/firebase_consts.dart';
 import 'package:innon/resources/styles.dart';
+import 'package:innon/services/send_token.dart';
 import 'package:innon/widgets/app_global_loader_widget.dart';
 import 'package:provider/provider.dart';
 
 final user = authInstance.currentUser;
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     loadHistoryPage();
+    getDeviceId();
     super.initState();
+  }
+
+  void getDeviceId() {
+    final regP = Provider.of<HomePageProvider>(context, listen: false);
+    FirebaseMessaging.instance
+        .getToken()
+        .then((token) => {regP.deviceId = token, SendToken.saveToken(token)});
   }
 
   void loadHistoryPage() {
@@ -35,7 +46,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final mInit = Provider.of<MainPageProvider>(context);
+    final mInit = Provider.of<HomePageProvider>(context);
     return StreamBuilder<User?>(
         stream: AuthRepository().authState,
         builder: (context, snapshot) {
@@ -53,7 +64,9 @@ class _MainPageState extends State<MainPage> {
                 backgroundColor: AppColors.bg,
                 body: mInit.currentIndex == 0
                     ? const BoardListPage()
-                    : const TasksPage(),
+                    : mInit.currentIndex == 1
+                        ? const TasksPage()
+                        : const TasksUserPage(),
                 bottomNavigationBar: Container(
                   decoration: const BoxDecoration(
                     border: Border(
@@ -80,6 +93,13 @@ class _MainPageState extends State<MainPage> {
                       BottomNavigationBarItem(
                         icon: Icon(
                           Icons.tab,
+                          size: 32,
+                        ),
+                        label: 'tasks',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(
+                          Icons.person,
                           size: 32,
                         ),
                         label: 'tasks',

@@ -6,10 +6,11 @@ import 'package:innon/data/card/card.dart';
 import 'package:innon/data/completed_task/completed_task.dart';
 import 'package:innon/data/completed_tasks/completed_tasks.dart';
 import 'package:innon/data/relation/relation.dart';
+import 'package:innon/data/user/user_model.dart';
 import 'package:innon/pages/board_list/board_list_provider.dart';
 import 'package:innon/pages/create_board/create_board_repo.dart';
 import 'package:innon/pages/kanban/kanban_repo.dart';
-import 'package:innon/pages/tasks/tasks_repo.dart';
+import 'package:innon/pages/tasks_history/tasks_repo.dart';
 
 import '../../data/task/task.dart';
 
@@ -32,12 +33,21 @@ class KanbanProvider extends ChangeNotifier {
   final TasksRepo _tasksRepo = TasksRepo();
 
   List<CompletedTask> completedTasks = [];
+  List<CompletedTask> completedTasksOfUser = [];
   CompletedTasks _c = CompletedTasks();
+  CompletedTasks _cUser = CompletedTasks();
   CompletedTasks get c => _c;
 
   void loadTaskHistory() async {
     _c = await _tasksRepo.getHistory();
     completedTasks = _c.completedTasks!;
+    print('COMPssssssss${completedTasks.length}');
+    notifyListeners();
+  }
+
+  void loadTaskHistoryOfUser() async {
+    _cUser = await _tasksRepo.getHistoryOfUser();
+    completedTasksOfUser = _cUser.completedTasks!;
     print('COMPssssssss${completedTasks.length}');
     notifyListeners();
   }
@@ -55,8 +65,9 @@ class KanbanProvider extends ChangeNotifier {
   void addTask({
     required int column,
     required String title,
+    List<UserModel>? users,
   }) {
-    final task = Task(title: title);
+    final task = Task(title: title, users: users);
     items[column].tasks.add(task);
     notifyListeners();
   }
@@ -86,6 +97,11 @@ class KanbanProvider extends ChangeNotifier {
 
     completedTasks.add(completedTask);
     TasksRepo().setHistory(completedTasks);
+    if (task.users != null) {
+      for (var i = 0; i < task.users!.length; i++) {
+        TasksRepo().setHistoryToUser(completedTask, task.users![i].id!);
+      }
+    }
   }
 
   String formattedTime(int countdown) {
@@ -188,13 +204,14 @@ class KanbanProvider extends ChangeNotifier {
     String title,
     String description,
   ) {
+    print('TITLE $title');
     final task = items[cardId].tasks[taskId];
     task.isTimerRunning = isTimerRunning;
     task.dateTimeEntry = DateTime.now();
     task.countDown = _countdown;
     task.description = description;
     task.title = title;
-
+    notifyListeners();
     CreateBoardRepo().updateBoardCard(items, boardId);
   }
 }

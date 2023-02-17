@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:innon/data/user/user_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../services/types.dart';
@@ -16,13 +17,15 @@ class Task {
 
   bool isTimerRunning;
 
-  Task({
-    required this.title,
-    this.description = '',
-    this.countDown = 0,
-    this.dateTimeEntry,
-    this.isTimerRunning = false,
-  });
+  List<UserModel>? users;
+
+  Task(
+      {required this.title,
+      this.description = '',
+      this.countDown = 0,
+      this.dateTimeEntry,
+      this.isTimerRunning = false,
+      this.users});
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
 

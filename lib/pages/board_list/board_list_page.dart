@@ -4,9 +4,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:innon/pages/create_board/create_board_page.dart';
 import 'package:innon/pages/kanban/kanban_page.dart';
 import 'package:innon/pages/kanban/kanban_provider.dart';
+import 'package:innon/pages/register/auth.dart';
 import 'package:innon/resources/app_assets.dart';
 import 'package:innon/resources/app_colors_const.dart';
 import 'package:innon/resources/app_styles_const.dart';
+import 'package:innon/resources/firebase_consts.dart';
 import 'package:innon/resources/images.dart';
 import 'package:innon/resources/screen_navigation_const.dart';
 import 'package:innon/widgets/app_global_loader_widget.dart';
@@ -52,6 +54,14 @@ class _BoardListPageState extends State<BoardListPage> {
         ),
         appBar: AppBar(
           title: const Text('Home'),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  AuthRepository().signOut();
+                  authInstance.signOut();
+                },
+                icon: const Icon(Icons.logout)),
+          ],
         ),
         body: boardInit.orgEvents.isEmpty
             ? AppLoaderWidget()
@@ -88,7 +98,7 @@ class _BoardListPageState extends State<BoardListPage> {
                           title: boardInit.orgEvents[index].title,
                           preview: Preview(
                             imagePath:
-                                '$images/bc${boardInit.orgEvents[index].backgroundIndex}.jpg',
+                                '$images/${boardInit.orgEvents[index].backgroundIndex}.jpg',
                           ),
                         ),
                       );

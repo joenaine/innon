@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:innon/data/completed_task/completed_task.dart';
 import 'package:innon/pages/kanban/kanban_provider.dart';
-import 'package:innon/pages/tasks/widgets/export_menu.dart';
-import 'package:innon/pages/tasks/widgets/task_list_tile.dart';
+import 'package:innon/pages/tasks_history/widgets/export_menu.dart';
+import 'package:innon/pages/tasks_history/widgets/task_list_tile.dart';
 import 'package:innon/resources/app_assets.dart';
 import 'package:innon/resources/app_styles_const.dart';
 import 'package:innon/widgets/app_global_loader_widget.dart';
@@ -119,7 +119,7 @@ class _TasksPageState extends State<TasksPage> with TickerProviderStateMixin {
                       ),
                     )
                   : ListView.builder(
-                      itemCount: kanbanInit.completedTasks.length,
+                      itemCount: kanbanInit.completedTasks.length + 1,
                       itemBuilder: (context, index) {
                         return index == 0
                             ? Row(

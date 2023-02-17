@@ -14,6 +14,9 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
           ? null
           : DateTime.parse(json['dateTimeEntry'] as String),
       isTimerRunning: json['isTimerRunning'] as bool? ?? false,
+      users: (json['users'] as List<dynamic>?)
+          ?.map((e) => UserModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
@@ -22,4 +25,5 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'countDown': instance.countDown,
       'dateTimeEntry': instance.dateTimeEntry?.toIso8601String(),
       'isTimerRunning': instance.isTimerRunning,
+      'users': instance.users,
     };

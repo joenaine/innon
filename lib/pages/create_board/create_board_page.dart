@@ -94,7 +94,6 @@ class _CreateBoardPageState extends State<CreateBoardPage> {
             SizedBox(
               height: 49.h,
             ),
-
             Center(
               child: SizedBox(
                 height: 40,
@@ -119,7 +118,7 @@ class _CreateBoardPageState extends State<CreateBoardPage> {
                                     Radius.circular(4.r),
                                   ),
                                   image: DecorationImage(
-                                    image: AssetImage('$images/bc$index.jpg'),
+                                    image: AssetImage('$images/$index.jpg'),
                                     fit: BoxFit.fill,
                                   ),
                                 ),
@@ -143,7 +142,7 @@ class _CreateBoardPageState extends State<CreateBoardPage> {
                                   Radius.circular(4.r),
                                 ),
                                 image: DecorationImage(
-                                  image: AssetImage('$images/bc$index.jpg'),
+                                  image: AssetImage('$images/$index.jpg'),
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -153,46 +152,6 @@ class _CreateBoardPageState extends State<CreateBoardPage> {
                 ),
               ),
             ),
-            // InkWell(
-            //   highlightColor: Palette.darkBlue,
-            //   onTap: () {
-            //     context.router.push(
-            //       ChooseBackgroundRoute(
-            //         createBoardPageStore: pageStore,
-            //       ),
-            //     );
-            //   },
-            //   child: Container(
-            //     color: AppColors.green,
-            //     padding: EdgeInsets.symmetric(
-            //       horizontal: 16.w,
-            //       vertical: 16.h,
-            //     ),
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //       children: [
-            //         TextSize.s16w500('Background'),
-
-            //         // Observer(builder: (context) {
-            //         //   return Container(
-            //         //     height: 22.w,
-            //         //     width: 22.w,
-            //         //     decoration: BoxDecoration(
-            //         //       borderRadius: BorderRadius.all(
-            //         //         Radius.circular(4.r),
-            //         //       ),
-            //         //       image: DecorationImage(
-            //         //         image: AssetImage(
-            //         //             '$images/bc${pageStore.selectedBackgroundIndex}.jpg'),
-            //         //         fit: BoxFit.fill,
-            //         //       ),
-            //         //     ),
-            //         //   );
-            //         // }),
-            //       ],
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),

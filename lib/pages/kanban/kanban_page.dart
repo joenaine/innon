@@ -49,7 +49,7 @@ class KanbanPage extends StatelessWidget {
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('$images/bc${board.backgroundIndex}.jpg'),
+              image: AssetImage('$images/${board.backgroundIndex}.jpg'),
             ),
           ),
           child: SafeArea(
