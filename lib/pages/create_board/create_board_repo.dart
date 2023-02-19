@@ -34,7 +34,16 @@ class CreateBoardRepo {
       firestoreInstance.collection('boards').doc(index.toString()).update({
         'cards': b.map((e) {
           return {
-            'tasks': e.tasks.map((e) => e.toJson()).toList(),
+            'tasks': e.tasks.map((e) {
+              return {
+                'title': e.title,
+                'description': e.description,
+                'countDown': e.countDown,
+                'dateTimeEntry': e.dateTimeEntry?.toIso8601String(),
+                'isTimerRunning': e.isTimerRunning,
+                'users': e.users?.map((e) => e.toJson()),
+              };
+            }).toList(),
             'title': e.title,
           };
         }).toList()
