@@ -82,29 +82,34 @@ class _BoardListPageState extends State<BoardListPage> {
                       ],
                     ),
                   )
-                : ListView.separated(
-                    itemCount: boardInit.orgEvents.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          changeScreen(context,
-                              KanbanPage(board: boardInit.orgEvents[index]));
-                          boardCardInit
-                              .setItems(boardInit.orgEvents[index].cards);
-                          // boardCardInit.items =
-                          //     boardInit.orgEvents[index].cards;
-                        },
-                        child: BoardListTile(
-                          title: boardInit.orgEvents[index].title,
-                          preview: Preview(
-                            imagePath:
-                                '$images/${boardInit.orgEvents[index].backgroundIndex}.jpg',
-                          ),
-                        ),
-                      );
+                : RefreshIndicator(
+                    onRefresh: () {
+                      return getBoardList();
                     },
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 4),
+                    child: ListView.separated(
+                      itemCount: boardInit.orgEvents.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            changeScreen(context,
+                                KanbanPage(board: boardInit.orgEvents[index]));
+                            boardCardInit
+                                .setItems(boardInit.orgEvents[index].cards);
+                            // boardCardInit.items =
+                            //     boardInit.orgEvents[index].cards;
+                          },
+                          child: BoardListTile(
+                            title: boardInit.orgEvents[index].title,
+                            preview: Preview(
+                              imagePath:
+                                  '$images/${boardInit.orgEvents[index].backgroundIndex}.jpg',
+                            ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 4),
+                    ),
                   ));
   }
 }
