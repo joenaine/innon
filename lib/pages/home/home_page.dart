@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:innon/pages/board_list/board_list_page.dart';
-import 'package:innon/pages/kanban/kanban_provider.dart';
 import 'package:innon/pages/home/home_page_provider.dart';
+import 'package:innon/pages/kanban/kanban_provider.dart';
 import 'package:innon/pages/register/auth.dart';
 import 'package:innon/pages/register/register_screen.dart';
 import 'package:innon/pages/tasks_history/tasks_page.dart';
@@ -27,21 +27,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    loadHistoryPage();
     getDeviceId();
     super.initState();
   }
 
   void getDeviceId() {
     final regP = Provider.of<HomePageProvider>(context, listen: false);
-    FirebaseMessaging.instance
-        .getToken()
-        .then((token) => {regP.deviceId = token, SendToken.saveToken(token)});
-  }
-
-  void loadHistoryPage() {
-    final kanbanInit = Provider.of<KanbanProvider>(context, listen: false);
-    kanbanInit.loadTaskHistory();
+    if (user != null) {
+      FirebaseMessaging.instance
+          .getToken()
+          .then((token) => {regP.deviceId = token, SendToken.saveToken(token)});
+    }
   }
 
   @override
@@ -60,6 +56,9 @@ class _HomePageState extends State<HomePage> {
           } else if (snapshot.connectionState == ConnectionState.done ||
               snapshot.connectionState == ConnectionState.active) {
             if (snapshot.hasData && user != null) {
+              final kanbanInit =
+                  Provider.of<KanbanProvider>(context, listen: false);
+              kanbanInit.loadTaskHistory();
               return Scaffold(
                 backgroundColor: AppColors.bg,
                 body: mInit.currentIndex == 0

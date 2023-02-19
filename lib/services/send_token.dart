@@ -6,17 +6,13 @@ import 'package:innon/pages/home/home_page.dart';
 
 class SendToken {
   static void saveToken(token) async {
-    await firestore.collection('users').doc(user?.uid).update({
+    firestore.collection('users').doc(user?.uid).update({
       'token': token,
     });
   }
 
   static Future<String> getUserToken(id) async {
-    return await firestore
-        .collection('UserTokens')
-        .doc(id)
-        .get()
-        .then((result) {
+    return firestore.collection('UserTokens').doc(id).get().then((result) {
       print('TOKEN FROM FIRE${result.data()?['token']}');
       return result.data()?['token'];
     });
